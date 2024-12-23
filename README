@@ -1,0 +1,61 @@
+Topsy Turvy
+===========
+
+Can you line up your pieces before your opponent, while making use of special 
+moves like disarray (^) and offset (!)?
+
+Playing
+-------
+1. Compile
+   Call the Makefile with the command:
+     make play
+   If one wishes to run the autotests, run the command:
+     make test
+   and run the command:
+     ./test
+
+2. Run
+   Once compiled, run the executable from your main directory with four flags:
+     -h HEIGHT
+     -w WIDTH
+     -r RUN_LENGTH
+     -m or -b (board representation)
+
+     Example:
+       ./topsy -h 6 -w 7 -r 4 -m
+
+     - The game expects exactly these flags; otherwise, it raises an error.
+
+3. Gameplay
+   - Black moves first.
+   - Drop a piece by entering the column label (0–9, A–Z, a–z).
+   - Disarray (^): Flip the board vertically and reverse gravity.
+   - Offset (!): Remove the oldest piece of the current player and the newest
+     piece of the opponent (if each has pieces on the board).
+   - Continue until a run of length r is formed or the board is full (draw).
+
+Goals
+-----
+1. Core “Connect”-style mechanics, supporting different board sizes and run lengths.
+2. Special moves: disarray (board flip) and offset (piece removal).
+3. Flexible data representations: matrix-based (-m) or bit-based (-b).
+
+Project Layout
+--------------
+play.c   - Contains main(), argument parsing, and the main game loop.
+logic.h  - Declares core structs (game, turn, outcome) and game logic functions.
+logic.c  - Implements game moves (drop, disarray, offset)
+board.h  - Declares structs for board representation. 
+board.c  - Implements either a matrix or bit-based board, plus display functions.
+pos.h    - Declares structs for piece positions and order queues. 
+pos.c    - Manages positions and queues (for oldest/newest pieces).
+Makefile - Automates compilation.
+
+Known Issues
+------------
+Inputs with more than one character are not handeled, and they may lead to a 
+sequence of incorrect input readings. This is caused because the buffer is not cleared
+between input attempts. Additional validation was not implemented due to deadline
+concerns.
+
+Enjoy Topsy Turvy!
